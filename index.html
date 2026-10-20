@@ -3,168 +3,744 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Коптильня "Электра" | Холодное копчение за 15 минут</title>
+<title>Коптильня «Электра» — электростатическое холодное копчение в домашних условиях</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #141414;
+    --bg-2: #1f1f1f;
+    --bg-3: #2a2a2a;
+    --accent: #d4a04a;
+    --accent-2: #a87a2e;
+    --text: #f0f0f0;
+    --muted: #a8a8a8;
+    --border: #333;
+  }
+
+  html { scroll-behavior: smooth; }
+
   body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.6;
-    color: #333;
-    background: #f9f6f1;
+    -webkit-font-smoothing: antialiased;
   }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  /* Header */
   header {
-    background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
-    color: #fff;
-    padding: 20px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 16px 0;
   }
+
   .header-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 12px;
   }
+
   .logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #ffb347;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--accent);
   }
-  .phone {
-    font-size: 20px;
-    color: #fff;
+
+  .logo span {
+    color: var(--text);
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-left: 8px;
+  }
+
+  nav { display: flex; flex-wrap: wrap; gap: 4px; }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--accent); }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    padding: 60px 0 70px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 40%, rgba(212, 160, 74, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 85% 60%, rgba(212, 160, 74, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-text .badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 30px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .hero-text h1 strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .hero-text p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+    max-width: 520px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #1a1a1a;
+    padding: 14px 28px;
+    border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
+    transition: background 0.2s;
   }
-  .phone:hover { color: #ffb347; }
-  .hero {
-    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-                url('https://images.unsplash.com/photo-1555939594-58d7cb561ad6?w=1600') center/cover;
-    color: #fff;
-    padding: 80px 0;
+
+  .hero-cta:hover { background: #e0b05a; }
+
+  .hero-img {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
+  }
+
+  .hero-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Sections */
+  section { padding: 70px 0; }
+
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
     text-align: center;
+    margin-bottom: 16px;
+    font-weight: 300;
+    letter-spacing: 1px;
   }
-  .hero h1 {
-    font-size: 42px;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+
+  .section-title strong {
+    color: var(--accent);
+    font-weight: 600;
   }
-  .hero p {
-    font-size: 20px;
-    margin-bottom: 30px;
+
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 50px;
+    font-size: 1rem;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
   }
-  .price {
-    font-size: 36px;
-    font-weight: bold;
-    color: #ffb347;
-    margin: 20px 0;
-  }
-  .btn {
-    display: inline-block;
-    background: #e67e22;
-    color: #fff;
-    padding: 15px 40px;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(230,126,34,0.4);
-  }
-  .btn:hover {
-    background: #d35400;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(230,126,34,0.6);
-  }
-  section { padding: 60px 0; }
-  h2 {
-    font-size: 32px;
-    text-align: center;
-    margin-bottom: 40px;
-    color: #2c1810;
-  }
-  .features {
+
+  /* Advantages */
+  .advantages { background: var(--bg-2); }
+
+  .adv-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
   }
-  .feature {
-    background: #fff;
-    padding: 30px 20px;
+
+  .adv-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
     border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    transition: transform 0.3s;
+    padding: 28px 24px;
+    transition: transform 0.3s, border-color 0.3s;
   }
-  .feature:hover { transform: translateY(-5px); }
-  .feature .icon { font-size: 48px; margin-bottom: 15px; }
-  .feature h3 { color: #2c1810; margin-bottom: 10px; font-size: 20px; }
-  .how {
-    background: #fff;
+
+  .adv-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
   }
-  .how-content {
-    max-width: 800px;
-    margin: 0 auto;
-    font-size: 17px;
-    text-align: center;
+
+  .adv-icon {
+    font-size: 1.8rem;
+    margin-bottom: 14px;
   }
-  .how-content p { margin-bottom: 15px; }
+
+  .adv-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .adv-card p {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  /* Video */
+  .video-section { background: var(--bg); }
+
   .video-wrap {
-    max-width: 800px;
-    margin: 30px auto 0;
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    background: #000;
   }
-  .video-wrap video { width: 100%; display: block; }
-  .delivery {
-    background: #2c1810;
-    color: #fff;
+
+  .video-wrap video {
+    width: 100%;
+    display: block;
+  }
+
+  /* Principle / Device */
+  .principle { background: var(--bg-2); }
+
+  .principle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .principle-img {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .principle-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .principle-text h3 {
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+
+  .principle-text h3 strong { color: var(--accent); }
+
+  .principle-text p {
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-size: 0.98rem;
+  }
+
+  .principle-text ul {
+    list-style: none;
+    margin-top: 20px;
+  }
+
+  .principle-text li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    color: var(--text);
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .principle-text li:last-child { border-bottom: none; }
+
+  .principle-text li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* Steps */
+  .steps-section { background: var(--bg); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+  }
+
+  .step {
+    position: relative;
+    padding: 30px 24px 24px;
+    background: var(--bg-2);
+    border-radius: 12px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .step-num {
+    position: absolute;
+    top: -14px;
+    left: 24px;
+    background: var(--accent);
+    color: var(--bg);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .step h4 {
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+  }
+
+  .step p {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* Specs */
+  .specs { background: var(--bg-2); }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .spec-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 30px 20px;
     text-align: center;
   }
-  .delivery h2 { color: #ffb347; }
-  .delivery-logos {
+
+  .spec-value {
+    font-size: 2rem;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .spec-label {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  /* Delivery */
+  .delivery { background: var(--bg); }
+
+  .delivery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  .delivery-block {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 30px;
+  }
+
+  .delivery-block h3 {
+    color: var(--accent);
+    margin-bottom: 16px;
+    font-size: 1.15rem;
+  }
+
+  .delivery-block ul { list-style: none; }
+
+  .delivery-block li {
+    padding: 10px 0;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+
+  .delivery-block li:last-child { border-bottom: none; }
+
+  .delivery-block li::before {
+    content: '✓ ';
+    color: var(--accent);
+    margin-right: 8px;
+    font-weight: 700;
+  }
+
+  /* Contacts */
+  .contacts {
+    background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg) 100%);
+    text-align: center;
+  }
+
+  .contact-links {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-    font-size: 16px;
-    opacity: 0.9;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-top: 30px;
   }
-  .contact {
-    background: #fff;
-  }
-  .contact-form {
-    max-width: 500px;
-    margin: 0 auto;
+
+  .contact-item {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    gap: 10px;
   }
-  .contact-form input,
-  .contact-form textarea {
-    padding: 14px;
-    border: 2px solid #e0d6c8;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: inherit;
-    transition: border-color 0.3s;
+
+  .contact-item .icon { font-size: 2rem; }
+
+  .contact-item a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.2s;
   }
-  .contact-form input:focus,
-  .contact-form textarea:focus {
-    outline: none;
-    border-color: #e67e22;
+
+  .contact-item a:hover { color: var(--accent); }
+
+  .contact-item .label {
+    color: var(--muted);
+    font-size: 0.85rem;
   }
-  .contact-form textarea { min-height: 100px; resize: vertical; }
-  .alt-contact {
+
+  /* Footer */
+  footer {
+    background: #0a0a0a;
+    padding: 24px 0;
     text-align: center;
-    margin-top: 25px;
-    font-size: 17px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
   }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero-grid,
+    .principle-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .hero { padding: 40px 0 50px; }
+
+    .hero-img { order: -1; }
+
+    section { padding: 50px 0; }
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 12px 0; }
+    .logo { font-size: 1.2rem; letter-spacing: 3px; }
+    .logo span { display: block; margin-left: 0; margin-top: 4px; }
+    nav { width: 100%; justify-content: center; }
+    nav a { font-size: 0.8rem; padding: 4px 8px; }
+
+    .hero-text { text-align: center; }
+    .hero-text p { margin-left: auto; margin-right: auto; }
+
+    .delivery-grid { grid-template-columns: 1fr; }
+
+    .contact-links { gap: 24px; }
+
+    .adv-card, .spec-card, .step { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="logo">ЭЛЕКТРА <span>· электростатическое копчение</span></div>
+    <nav>
+      <a href="#about">О продукте</a>
+      <a href="#video">Видео</a>
+      <a href="#principle">Устройство</a>
+      <a href="#steps">Как использовать</a>
+      <a href="#specs">Характеристики</a>
+      <a href="#delivery">Доставка</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="badge">Одно из первых в России</div>
+        <h1>Домашняя коптильня <strong>«Электра»</strong></h1>
+        <p>Электростатическое холодное копчение мяса, сала и рыбы в домашних условиях. Глубокая пропитка дымом за 15–40 минут вместо многочасового ожидания.</p>
+        <a href="#contacts" class="hero-cta">Связаться с нами →</a>
+      </div>
+      <div class="hero-img">
+        <img src="Main.jpg" alt="Коптильня Электра с копчёной рыбой">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="advantages" id="about">
+  <div class="container">
+    <h2 class="section-title">Почему выбирают <strong>«Электру»</strong></h2>
+    <p class="section-sub">Семь преимуществ электростатического копчения перед традиционными методами</p>
+
+    <div class="adv-grid">
+      <div class="adv-card">
+        <div class="adv-icon">⚡</div>
+        <h3>Высокая скорость</h3>
+        <p>Обработка продукта от 15 минут до 3 часов — значительно быстрее классического холодного копчения.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🌿</div>
+        <h3>Экологичность</h3>
+        <p>Чистый процесс копчения без вредных выбросов и посторонних запахов в помещении.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon"></div>
+        <h3>Минимум энергии</h3>
+        <p>Потребление всего 60 Вт — экономичнее большинства бытовых приборов.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🏆</div>
+        <h3>Высокое качество</h3>
+        <p>Электроразрядник обеспечивает глубокое пропитывание дымом — вкус как у лучших деликатесов.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🔧</div>
+        <h3>Простота и надёжность</h3>
+        <p>Интуитивное управление, встроенный дымогенератор и электронный блок. Минимум обслуживания.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">🔄</div>
+        <h3>Универсальность</h3>
+        <p>Быстрый переход с одного вида продуктов на другой. Мясо, сало, рыба — всё в одной коптильне.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">📅</div>
+        <h3>Круглый год</h3>
+        <p>Работает в любое время года — не зависит от погоды и сезона. Коптите даже зимой.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="video-section" id="video">
+  <div class="container">
+    <h2 class="section-title">Демонстрация <strong>работы</strong></h2>
+    <p class="section-sub">Посмотрите, как просто приготовить копчёную рыбу в коптильне «Электра»</p>
+
+    <div class="video-wrap">
+      <video controls preload="metadata" poster="Main.jpg">
+        <source src="Video.mp4" type="video/mp4">
+        Ваш браузер не поддерживает воспроизведение видео.
+      </video>
+    </div>
+  </div>
+</section>
+
+<section class="principle" id="principle">
+  <div class="container">
+    <h2 class="section-title">Принцип работы и <strong>устройство</strong></h2>
+    <p class="section-sub">В основе — электростатическое поле, которое заставляет дым «прилипать» к продукту</p>
+
+    <div class="principle-grid">
+      <div class="principle-img">
+        <img src="Panel.jpg" alt="Панель управления коптильни Электра">
+      </div>
+      <div class="principle-text">
+        <h3>Как работает <strong>электростатическое копчение</strong></h3>
+        <p>
+          В коптильной камере создаётся электростатическое поле напряжением <strong style="color:var(--accent)">25 кВ</strong>.
+          Дым, образующийся в камере дымогенератора при сгорании древесины, ионизируется и под действием поля
+          буквально «прилипает» к поверхности продукта.
+        </p>
+        <p>
+          Это ускоряет обработку и обеспечивает глубокое проникновение коптильных веществ — результат,
+          недостижимый при обычном копчении. Технология проверена и показала свою эффективность на практике.
+        </p>
+        <ul>
+          <li>Рабочий электрод — металлическая трубка с подвесами для шампуров на изоляторах</li>
+          <li>Блоки коронирующих игл на дверце и боковой стенке</li>
+          <li>Встроенный дымогенератор с вентилятором</li>
+          <li>Электронный блок управления с индикацией режимов</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section" id="steps">
+  <div class="container">
+    <h2 class="section-title">Четыре простых <strong>шага</strong></h2>
+    <p class="section-sub">От подготовки до готового деликатеса — без сложных операций</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Подготовка продукта</h4>
+        <p>Нанижите рыбу, мясо или сало на шампуры и разместите в коптильной камере на подвесах.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Загрузка щепы</h4>
+        <p>Засыпьте древесную щепу во встроенный дымогенератор и закройте крышку.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Запуск процесса</h4>
+        <p>Включите подачу дыма и режим копчения — коптильня работает автоматически.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Готовый результат</h4>
+        <p>Через 15–40 минут (для рыбы) — деликатес собственного производства готов к подаче.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="specs" id="specs">
+  <div class="container">
+    <h2 class="section-title">Технические <strong>характеристики</strong></h2>
+    <p class="section-sub">Цифры, которые говорят сами за себя</p>
+
+    <div class="specs-grid">
+      <div class="spec-card">
+        <div class="spec-value">25 кВ</div>
+        <div class="spec-label">Выходное напряжение электростатического поля</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-value">60 Вт</div>
+        <div class="spec-label">Потребление электроэнергии</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-value">40 мин</div>
+        <div class="spec-label">Время копчения рыбы</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-value">15–180 мин</div>
+        <div class="spec-label">Диапазон времени обработки</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="delivery" id="delivery">
+  <div class="container">
+    <h2 class="section-title">Доставка и <strong>оплата</strong></h2>
+    <p class="section-sub">Получите коптильню «Электра» в любой точке России</p>
+
+    <div class="delivery-grid">
+      <div class="delivery-block">
+        <h3> Бесплатная доставка</h3>
+        <ul>
+          <li>Деловые линии</li>
+          <li>ПЭК</li>
+          <li>Байкал-Сервис</li>
+          <li>КИТ</li>
+          <li>Энергия</li>
+        </ul>
+      </div>
+      <div class="delivery-block">
+        <h3>💳 Удобная оплата</h3>
+        <ul>
+          <li>Банковский перевод</li>
+          <li>Наложенный платёж через СДЭК</li>
+          <li>Оплата при получении</li>
+          <li>Любой удобный способ</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contacts" id="contacts">
+  <div class="container">
+    <h2 class="section-title">Свяжитесь с <strong>нами</strong></h2>
+    <p class="section-sub">Забудьте про магазинные деликатесы низкого качества — создайте собственные шедевры дома с коптильней «Электра»</p>
+
+    <div class="contact-links">
+      <div class="contact-item">
+        <div class="icon">📞</div>
+        <a href="tel:+79109791575">+7 (910) 979-15-75</a>
+        <div class="label">Телефон</div>
+      </div>
+      <div class="contact-item">
+        <div class="icon">✉️</div>
+        <a href="mailto:wn-13@mail.ru">wn-13@mail.ru</a>
+        <div class="label">Электронная почта</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2026 Коптильня «Электра». Электростатическое холодное копчение в домашних условиях.
+  </div>
+</footer>
+
+</body>
+</html>
